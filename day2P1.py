@@ -21,11 +21,28 @@ def IDsCheckSum(changesFile):
                 arrayNumReapeted[0] +=1
             if flag3 != 0:
                 arrayNumReapeted[1] +=1
-            line = f.readline()
-            
-    f.close()        
-    print (arrayNumReapeted)
+            line = f.readline()            
+    f.close()
     return arrayNumReapeted[0] * arrayNumReapeted[1]
+
+def IDsDifferences(changesFile):
+    """Day 2: Inventory Management System Part 1"""
+    arrayIDs = []
+    with open(changesFile, 'r') as f:
+        line = f.readline()
+        while line:
+            arrayIDs.append(line)
+            line = f.readline()            
+    f.close()
+    correctBox = ""
+    for i in arrayIDs:
+        for j in arrayIDs:
+            if sum(1 for a, b in zip(i, j) if a != b) == 1:
+                for a, b in zip(i, j):
+                    if a == b:
+                        correctBox += a
+    return correctBox
     
 if __name__ == "__main__":
     print(IDsCheckSum("IDs.txt"))
+    print(IDsDifferences("IDs.txt"))
